@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
-from .models import Product
+from .models import Product, Order
 from .forms import ProductFormset
 
 
@@ -15,3 +15,7 @@ class HomeView(View):
 
         }
         return render(request, 'pizza_constructor/home.html', context)
+
+    def post(self, request):
+        pass
+    #Добавить ПОСТ. нАстроить отображение формы заказа, создать для неё типлейт

@@ -10,7 +10,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name='Product name')
     in_stock = models.PositiveIntegerField(verbose_name='Product in stock')
     price = models.DecimalField(max_digits=7, decimal_places=2)
 

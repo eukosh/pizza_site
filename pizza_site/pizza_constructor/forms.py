@@ -1,16 +1,15 @@
 from django import forms
-from django.forms import formset_factory, inlineformset_factory
+from django.forms import formset_factory
 
-from .models import Product
+from .models import Product, Order
 
 
 class ProductForm(forms.ModelForm):
-    quantity = forms.IntegerField(min_value=0, widget=forms.NumberInput(), initial=0, label='Количество')
+    quantity = forms.IntegerField(min_value=0, widget=forms.NumberInput(), initial=0, label='Quantity')
     category_id = forms.IntegerField(widget=forms.HiddenInput())
 
     class Meta:
         widgets = {'name': forms.TextInput(attrs={'readonly': ''}),
-                   # 'category': forms.TextInput(attrs={'readonly': ''}),
                    'price': forms.TextInput(attrs={'readonly': ''}),
                    'in_stock': forms.TextInput(attrs={'readonly': ''}),
                    }
@@ -38,5 +37,10 @@ class BaseProductFormset(forms.BaseFormSet):
         return res
 
 
-# ProductFormset = formset_factory(ProductForm, extra=0, formset=BaseProductFormset)
-ProductFormset = formset_factory(ProductForm, extra=0)
+ProductFormset = formset_factory(ProductForm, extra=0, formset=BaseProductFormset)
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['product', 'ordered_quantity', 'total_price', 'client']
