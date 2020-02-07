@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load groupper %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    <h1>HOME PAGE</h1>
+    {% if formset %}
+        <form action="" method="POST">
+
+            {{ formset.management_form }}
+            {% group_by_category formset as groupped_forms %}
+            {% for category,forms in groupped_forms %}
+                <h1 align="left">{{ category.name }}</h1>
+                {% for form in forms %}
+                    {{ form.as_table }}
+                    <br><br>
+                {% endfor %}
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    {% endif %}
+{% endblock %}
